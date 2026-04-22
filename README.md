@@ -1,30 +1,46 @@
 <<<<<<< HEAD
-# cloud-nginx-project
-=======
-# Cloud Nginx Reverse Proxy Project
+# 🚀 Cloud Nginx Reverse Proxy Project
 
-## Description
-This project demonstrates a complete cloud web architecture:
+## 📌 Description
+This project demonstrates a real-world cloud web architecture using:
 
-- Nginx as reverse proxy 
+- Nginx as a reverse proxy
 - Python Flask backend
-- HTTPS configuration (SSL)
-- Systems service for production
+- HTTPS (SSL configuration)
+- Systemd service for production deployment
 
-## Architecture 
-Client -> Nginx -> Flask App
+## 🏗️ Architecture
+Client → Nginx → Flask Application
 
-## Features 
+## ⚙️ Features
 - Reverse proxy configuration
-- Secure HTTPS setup
-- Backend API
-- Persistent service (systemd)
+- Secure HTTPS setup (self-signed SSL)
+- Backend API with Flask
+- Persistent service using systemd
+- Log monitoring and debugging
 
-## Technologies 
+## 🛠️ Technologies Used
 - Linux (Ubuntu)
 - Nginx
 - Python (Flask)
+- Git & GitHub
+
+## 🌐 How to Run
+
+bash
+# Install dependencies
+sudo apt update
+sudo apt install nginx python3-pip -y
+
+# Install Flask
+pip3 install flask
+
+# Run app
+python3 app.py
 
 ## Author 
 OBED LEMBISSA MAGNAGNA
 >>>>>>> 7529a2a (Initial commit - Nginx reverse proxy project)
+
+## 💡 Project Goal
+This project was built to demonstrate hands-on cloud engineering skills, including web server configuration, reverse proxy setup, HTTPS security, and Linux service management.

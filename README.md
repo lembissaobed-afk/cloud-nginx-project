@@ -44,3 +44,18 @@ OBED LEMBISSA MAGNAGNA
 
 ## 💡 Project Goal
 This project was built to demonstrate hands-on cloud engineering skills, including web server configuration, reverse proxy setup, HTTPS security, and Linux service management.
+
+## System Monitoring Script
+
+This script monitors CPU, memory, and disk usage.
+
+### Sample Output
+
+CPU: 25% | Memory: 40% | Disk: 60%  
+CPU: 30% | Memory: 42% | Disk: 61%  
+
+### Automation
+
+Automated using cron:
+
+* * * * * /usr/bin/python3 /home/ubuntu/monitor.py

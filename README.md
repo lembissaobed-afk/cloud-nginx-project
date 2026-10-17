@@ -26,8 +26,8 @@ Requirements: Docker with Docker Compose.
 
     docker compose up --build -d
     docker compose ps
-    curl http://localhost
-    curl http://localhost/api
+    curl -k https://localhost
+    curl -k https://localhost/api
 
 Stop it with: docker compose down
 
@@ -40,7 +40,7 @@ monitoring/monitor.py logs CPU, memory and disk usage every 5 seconds using psut
 
 ## Roadmap
 
-- [ ] HTTPS (TLS) on Nginx
+- [x] HTTPS (self-signed TLS) on Nginx
 - [ ] CI with GitHub Actions
 - [ ] Deploy to a cloud VM
 - [ ] Prometheus and Grafana monitoring
@@ -48,3 +48,14 @@ monitoring/monitor.py logs CPU, memory and disk usage every 5 seconds using psut
 ## Author
 
 Obed LEMBISSA MAGNAGNA
+
+## HTTPS certificate (run once before the first start)
+
+The certificate and key are not stored in the repository. Generate a self-signed pair:
+
+    mkdir -p nginx/certs
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+      -keyout nginx/certs/server.key -out nginx/certs/server.crt \
+      -subj "/CN=localhost"
+
+Nginx redirects HTTP (80) to HTTPS (443). Browsers warn about self-signed certificates, which is expected. Use `curl -k` to skip verification when testing.

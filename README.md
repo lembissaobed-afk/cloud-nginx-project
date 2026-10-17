@@ -1,61 +1,50 @@
-<<<<<<< HEAD
-# 🚀 Cloud Nginx Reverse Proxy Project
+# Cloud Nginx Reverse Proxy Project
 
-## 📌 Description
-This project demonstrates a real-world cloud web architecture using:
+A containerized web stack: Nginx as a reverse proxy in front of a Python Flask app served by Gunicorn, orchestrated with Docker Compose.
 
-- Nginx as a reverse proxy
-- Python Flask backend
-- HTTPS (SSL configuration)
-- Systemd service for production deployment
+## Architecture
 
-## 🏗️ Architecture
-Client → Nginx → Flask Application
+Client -> Nginx (port 80) -> Flask/Gunicorn (port 5000, internal only)
 
-## ⚙️ Features
-- Reverse proxy configuration
-- Secure HTTPS setup (self-signed SSL)
-- Backend API with Flask
-- Persistent service using systemd
-- Log monitoring and debugging
+## Features
 
-## 🛠️ Technologies Used
-- Linux (Ubuntu)
-- Nginx
-- Python (Flask)
-- Git & GitHub
+- Nginx reverse proxy configuration (nginx/default.conf)
+- Flask API with /, /api and /health endpoints
+- Gunicorn production server inside a Docker image
+- Container health check; Nginx starts only after Flask is healthy
 
-## 🌐 How to Run
+## Project structure
 
-bash
-# Install dependencies
-sudo apt update
-sudo apt install nginx python3-pip -y
+- app/ : Flask app, requirements, Dockerfile
+- nginx/ : Nginx configuration
+- monitoring/ : system monitoring script (CPU, memory, disk)
+- compose.yaml : Docker Compose definition
 
-# Install Flask
-pip3 install flask
+## Run it
 
-# Run app
-python3 app.py
+Requirements: Docker with Docker Compose.
 
-## Author 
-OBED LEMBISSA MAGNAGNA
->>>>>>> 7529a2a (Initial commit - Nginx reverse proxy project)
+    docker compose up --build -d
+    docker compose ps
+    curl http://localhost
+    curl http://localhost/api
 
-## 💡 Project Goal
-This project was built to demonstrate hands-on cloud engineering skills, including web server configuration, reverse proxy setup, HTTPS security, and Linux service management.
+Stop it with: docker compose down
 
-## System Monitoring Script
+## Monitoring script
 
-This script monitors CPU, memory, and disk usage.
+monitoring/monitor.py logs CPU, memory and disk usage every 5 seconds using psutil:
 
-### Sample Output
+    pip install psutil
+    python3 monitoring/monitor.py
 
-CPU: 25% | Memory: 40% | Disk: 60%  
-CPU: 30% | Memory: 42% | Disk: 61%  
+## Roadmap
 
-### Automation
+- [ ] HTTPS (TLS) on Nginx
+- [ ] CI with GitHub Actions
+- [ ] Deploy to a cloud VM
+- [ ] Prometheus and Grafana monitoring
 
-Automated using cron:
+## Author
 
-* * * * * /usr/bin/python3 /home/ubuntu/monitor.py
+Obed LEMBISSA MAGNAGNA

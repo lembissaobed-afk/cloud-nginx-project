@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate test certificate
+        run: |
+          mkdir -p nginx/certs
+          openssl req -x509 -nodes -days 1 -newkey rsa:2048 \
+            -keyout nginx/certs/server.key -out nginx/certs/server.crt \
+            -subj "/CN=localhost"
+
+      - name: Build and start the stack
+        run: docker compose up --build -d
+
+      - name: Wait for the app to be ready
+        run: |
+          for i in $(seq 1 30); do
+            curl -fsk https://localhost/health && exit 0
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          exit 1
+
+      - name: Test endpoints
+        run: |
+          curl -fsk https://localhost/
+          curl -fsk https://localhost/api
+          curl -sI http://localhost | grep -q "301"
+          curl -sI http://localhost | grep -qi "location: https://"
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop the stack
+        if: always()
+        run: docker compose down

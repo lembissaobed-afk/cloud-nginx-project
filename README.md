@@ -1,5 +1,7 @@
 # Cloud Nginx Reverse Proxy Project
 
+![CI](https://github.com/lembissaobed-afk/cloud-nginx-project/actions/workflows/ci.yml/badge.svg)
+
 A containerized web stack: Nginx as a reverse proxy in front of a Python Flask app served by Gunicorn, orchestrated with Docker Compose.
 
 ## Architecture
